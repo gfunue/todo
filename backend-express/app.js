@@ -1,22 +1,18 @@
 const express = require("express");
 require("dotenv").config();
 const routes = require("./routes/routes");
-const mysql = require("mysql");
-const bcrypt = require("bcryptjs");
-const jwt = require("jsonwebtoken");
 const cors = require("cors");
 const app = express();
-const router = express.Router();
-const port = process.env.PORT;
+const port = process.env.PORT || 3000;
 
-routes(router);
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
 app.use(express.json());
+app.use("/", routes);
 
 try {
   app.listen(port, () => {
-    console.log("Server listening on port 3000");
+    console.log(`Server listening on port ${port}`);
   });
 } catch (error) {
   console.error("Error starting the server:", error);
