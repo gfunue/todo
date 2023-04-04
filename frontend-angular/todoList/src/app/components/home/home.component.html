@@ -1,0 +1,90 @@
+<nav class="navbar bg-body-tertiary">
+  <div class="container-fluid">
+    <div>
+      <button
+        class="btn btn-primary"
+        type="button"
+        data-bs-toggle="offcanvas"
+        data-bs-target="#offcanvasWithBothOptions"
+        aria-controls="offcanvasWithBothOptions"
+      >
+        List Menu
+      </button>
+    </div>
+
+    <form class="d-flex" role="search">
+      <input
+        class="form-control me-2"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button class="btn btn-outline-success" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
+
+<div
+  class="offcanvas offcanvas-start"
+  data-bs-scroll="true"
+  tabindex="-1"
+  id="offcanvasWithBothOptions"
+  aria-labelledby="offcanvasWithBothOptionsLabel"
+>
+  <div class="offcanvas-header">
+    <h2>My To Do Lists</h2>
+    <button
+      type="button"
+      class="btn-close"
+      data-bs-dismiss="offcanvas"
+      aria-label="Close"
+    ></button>
+  </div>
+  <div class="offcanvas-body">
+    <form
+      class="new-list-form"
+      (submit)="createNewList(); $event.preventDefault()"
+    >
+      <input
+        type="text"
+        [(ngModel)]="newListName"
+        name="newList"
+        placeholder="Create New List"
+        autocomplete="off"
+      />
+      <button type="submit">+</button>
+    </form>
+    <div class="list-item" *ngFor="let list of allLists">
+      <a (click)="selectList(list)">{{ list.name }}</a>
+      <button type="button" (click)="deleteList(list.id)">&times;</button>
+    </div>
+  </div>
+</div>
+
+<main>
+  <div class="box" id="heading">
+    <h1>{{ currentDate | date }}</h1>
+    <h1 *ngIf="selectedList">{{ selectedList.name }}</h1>
+  </div>
+  <div class="box">
+    <ng-container *ngFor="let item of newListItems">
+      <form (submit)="deleteItem(item.id); $event.preventDefault()">
+        <div class="item">
+          <input type="checkbox" (click)="deleteItem(item.id)" />
+
+          <p>{{ item.name }}</p>
+        </div>
+      </form>
+    </ng-container>
+    <form class="item" (submit)="createNewItem(); $event.preventDefault()">
+      <input
+        type="text"
+        [(ngModel)]="newItemName"
+        name="newItem"
+        placeholder="Add New To Do ..."
+        autocomplete="off"
+      />
+      <button type="submit">+</button>
+    </form>
+  </div>
+</main>

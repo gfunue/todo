@@ -15,7 +15,7 @@ function createListsTable() {
   const sql = `
     CREATE TABLE IF NOT EXISTS lists (
       id INT AUTO_INCREMENT UNIQUE NOT NULL PRIMARY KEY,
-      name VARCHAR(255) UNIQUE NOT NULL,
+      name VARCHAR(255) NOT NULL,
       user_id INT NOT NULL,
       FOREIGN KEY (user_id) REFERENCES users(id)
     );
@@ -37,12 +37,95 @@ connection.connect((err) => {
   }
 });
 
-function createList(name, user_id, callback) {
+function getUserLists(userId, callback) {
+  console.log("getUserLists called with userId:", userId);
+  connection.query(
+    "SELECT * FROM lists WHERE user_id = ?",
+    [userId],
+    (error, results) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        callback(null, results);
+      }
+    }
+  );
+}
+
+function createNewList(name, user_id, callback) {
   const sql = "INSERT INTO lists (name, user_id) VALUES (?, ?)";
   connection.query(sql, [name, user_id], (error, results) => {
     callback(error, results);
   });
 }
+
+function createNewList(name, user_id, callback) {
+  const sql = "SELECT * FROM lists WHERE name = ? AND user_id = ?";
+  connection.query(sql, [name, user_id], (error, results) => {
+    if (error) {
+      callback(error, null);
+    } else {
+      if (results.length > 0) {
+        callback("List already exists", null);
+      } else {
+        const insertSql = "INSERT INTO lists (name, user_id) VALUES (?, ?)";
+        connection.query(insertSql, [name, user_id], (error, results) => {
+          callback(error, results);
+        });
+      }
+    }
+  });
+}
+
+// function createNewList(name, user_id, callback) {
+//   const selectSql = "SELECT id FROM lists WHERE name = ? AND user_id = ?";
+//   connection.query(selectSql, [name, user_id], (error, results) => {
+//     if (error) {
+//       callback(error);
+//     } else {
+//       if (results.length > 0) {
+//         // A list with the given name and user id already exists
+//         const err = new Error(
+//           "List with the given name and user id already exists"
+//         );
+//         err.statusCode = 400;
+//         callback(err);
+//       } else {
+//         // Insert a new list
+//         const insertSql = "INSERT INTO lists (name, user_id) VALUES (?, ?)";
+//         connection.query(insertSql, [name, user_id], (error, results) => {
+//           callback(error, results);
+//         });
+//       }
+//     }
+//   });
+// }
+
+// function createDefaultItems(listId, callback) {
+//   const defaultItems = ["Item 1", "Item 2", "Item 3"];
+//   const insertPromises = defaultItems.map((itemName) => {
+//     return new Promise((resolve, reject) => {
+//       connection.query(
+//         "INSERT INTO items (name, list_id) VALUES (?, ?)",
+//         [itemName, listId],
+//         (error, results) => {
+//           if (error) {
+//             reject(error);
+//           } else {
+//             resolve(results);
+//           }
+//         }
+//       );
+//     });
+//   });
+//   Promise.all(insertPromises)
+//     .then(() => {
+//       callback(null);
+//     })
+//     .catch((error) => {
+//       callback(error);
+//     });
+// }
 
 function getAllLists(callback) {
   const sql = "SELECT * FROM lists";
@@ -85,9 +168,11 @@ function updateList(listId, name, callback) {
 module.exports = {
   connection,
   createListsTable,
-  createList,
+  createNewList,
   getAllLists,
   getListById,
   deleteListById,
   updateList,
+  getUserLists,
+  //createDefaultItems,
 };

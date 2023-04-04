@@ -1,0 +1,60 @@
+<body class="text-center">
+  <main class="form-signin w-100 m-auto">
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <h1 class="h3 mb-3 fw-normal">Log In</h1>
+      <h6>All field is required</h6>
+      <div class="form-floating">
+        <input
+          type="email"
+          class="form-control top"
+          id="floatingInput"
+          placeholder="name@example.com"
+          formControlName="email"
+        />
+        <label for="floatingInput">Email address*</label>
+        <p
+          class="invalid"
+          *ngIf="email!.invalid && (email!.touched || email!.dirty)"
+        >
+          <span *ngIf="email!.errors?.['required']">E-Mail is required!</span>
+        </p>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control bottom"
+          id="floatingPassword"
+          placeholder="Password"
+          formControlName="password"
+        />
+        <label for="floatingPassword1">Enter Password*</label>
+        <p
+          class="invalid"
+          *ngIf="password!.invalid && (password!.touched || password!.dirty)"
+        >
+          <span *ngIf="password!.errors?.['required']"
+            >Password is required!</span
+          >
+          <!-- <span *ngIf="password!.errors?.['minlength']"
+            >Password should be at least 2 characters!</span
+          > -->
+          <!-- <span *ngIf="password!.errors?.['maxlength']"
+            >Password should be at most 20 characters!</span
+          > -->
+        </p>
+      </div>
+
+      <button
+        class="w-100 btn btn-lg btn-primary"
+        type="submit"
+        [disabled]="loginForm.invalid"
+      >
+        LogIn
+      </button>
+      <p>
+        Don't have an account ?
+        <a routerLink="/registration">Register</a>
+      </p>
+    </form>
+  </main>
+</body>

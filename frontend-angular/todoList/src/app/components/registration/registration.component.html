@@ -1,0 +1,127 @@
+<body class="text-center">
+  <main class="form-signin w-100 m-auto">
+    <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
+      <h1 class="h3 mb-3 fw-normal">Register</h1>
+      <h6>All field is required</h6>
+      <div class="form-floating">
+        <input
+          type="email"
+          class="form-control top"
+          id="floatingInput"
+          placeholder="name@example.com"
+          name="email"
+          formControlName="email"
+        />
+        <label for="floatingInput">Email address</label>
+        <p
+          class="invalid"
+          *ngIf="email!.invalid && (email!.touched || email!.dirty)"
+        >
+          <span *ngIf="email!.errors?.['required']">E-Mail is required!</span>
+          <span *ngIf="email!.errors?.['email']"
+            >Must be a valid e-mail address!</span
+          >
+        </p>
+      </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control middle"
+          id="firstName"
+          placeholder="firstName"
+          name="firstName"
+          formControlName="firstName"
+        />
+        <label for="floatingInput">First Name</label>
+        <p
+          class="invalid"
+          *ngIf="firstName!.invalid && (firstName!.touched || firstName!.dirty)"
+        >
+          <span *ngIf="firstName!.errors?.['required']"
+            >First Name is required!</span
+          >
+          <span
+            *ngIf="firstName!.errors?.['minlength'] 
+                      || firstName!.errors?.['maxlength']"
+            >First Name must be between 3-20 characters!</span
+          >
+        </p>
+      </div>
+      <div class="form-floating">
+        <input
+          type="text"
+          class="form-control middle"
+          id="lastName"
+          placeholder="lastName"
+          name="lastName"
+          formControlName="lastName"
+        />
+        <label for="floatingInput">Last Name</label>
+        <p
+          class="invalid"
+          *ngIf="lastName!.invalid && (lastName!.touched || lastName!.dirty)"
+        >
+          <span *ngIf="lastName!.errors?.['required']"
+            >Last Name is required!</span
+          >
+          <span
+            *ngIf="lastName!.errors?.['minlength'] 
+                      || lastName!.errors?.['maxlength']"
+            >Last Name must be 3-20 characters!</span
+          >
+        </p>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control middle"
+          id="floatingPassword"
+          placeholder="Password"
+          name="password"
+          formControlName="password"
+        />
+        <label for="floatingPassword">Password</label>
+        <p
+          class="invalid"
+          *ngIf="password!.invalid && (password!.touched || password!.dirty)"
+        >
+          <span *ngIf="password!.errors?.['required']"
+            >Password is required!</span
+          >
+          <span
+            *ngIf="password!.errors?.['minlength'] 
+                      || password!.errors?.['maxlength']"
+            >Password must be exactly 8 characters!</span
+          >
+        </p>
+      </div>
+      <div class="form-floating">
+        <input
+          type="password"
+          class="form-control bottom"
+          id="floatingPassword1"
+          placeholder="Password"
+          formControlName="confirmPassword"
+        />
+        <label for="floatingPassword1">Comfirm Password</label>
+        <p
+          class="invalid"
+          *ngIf="confirmPassword!.touched && (confirmPassword!.touched 
+                 || confirmPassword!.dirty) && registrationForm.errors?.['notSame']"
+        >
+          <span *ngIf="registrationForm.errors?.['notSame']"
+            >Passwords must match!</span
+          >
+        </p>
+      </div>
+      <button
+        class="w-100 btn btn-lg btn-primary submitButton"
+        type="submit"
+        [disabled]="registrationForm.invalid"
+      >
+        REGISTER
+      </button>
+      <p>Already have an account ? <a routerLink="/">LogIn</a></p>
+    </form>
+  </main>
+</body>

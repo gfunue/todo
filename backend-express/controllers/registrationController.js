@@ -9,7 +9,6 @@ const register = async (req, res) => {
   const lastName = req.body.lastName;
   const email = req.body.email;
   const password = req.body.password;
-
   try {
     const hashedPassword = await bcrypt.hash(password, 8);
     Registration.registerUser(
