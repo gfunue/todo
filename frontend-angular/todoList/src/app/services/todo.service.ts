@@ -130,6 +130,12 @@ export class TodoService {
 
   createItem(listId: number, item: { name: string }): Observable<Item> {
     console.log('createItem request::::', listId, item); // log the request body
+    console.log(
+      'createItem request URL:',
+      `${this.apiUrl}/lists/${listId}/items`
+    );
+    console.log('createItem request body:', item);
+
     return this.http.post<Item>(`${this.apiUrl}/lists/${listId}/items`, item, {
       headers: this.getAuthHeaders(),
     });

@@ -14,8 +14,21 @@ const getAllItems = (req, res) => {
 };
 
 // Create a new item in a list
+// const createItem = (req, res) => {
+//   const listId = req.params.listId;
+//   console.log("THE LIST ID" + listId);
+//   const itemName = req.body.name;
+//   Item.createItemInList(listId, itemName, (error, results) => {
+//     if (error) {
+//       console.error("Error creating item:", error);
+//       res.status(400).send(error);
+//     } else {
+//       res.status(201).send({ id: results.insertId, name: itemName });
+//     }
+//   });
+// };
 const createItem = (req, res) => {
-  const listId = req.params.listId;
+  const listId = parseInt(req.params.listId, 10);
   console.log("THE LIST ID" + listId);
   const itemName = req.body.name;
   Item.createItemInList(listId, itemName, (error, results) => {
@@ -24,6 +37,8 @@ const createItem = (req, res) => {
       res.status(400).send(error);
     } else {
       res.status(201).send({ id: results.insertId, name: itemName });
+      console.log("createItem req.params:", req.params);
+      console.log("createItem req.body:", req.body);
     }
   });
 };

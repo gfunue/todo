@@ -3,12 +3,12 @@ body {
   height: 100%;
 } */
 
-body {
+/* body {
   align-items: center;
   padding-top: 40px;
   padding-bottom: 40px;
   background-color: #f5f5f5;
-}
+} */
 
 .form-signin {
   max-width: 400px;
@@ -75,12 +75,22 @@ h1 {
   text-align: center;
 }
 
-.item {
+.sidebar-heading {
+  background-color: #a683e3;
+  text-align: center;
+  padding: 8px;
+  color: white;
+  border-radius: 5px;
+  align-self: center;
+  margin: 50px auto;
+}
+
+/* .item {
   min-height: 70px;
   display: flex;
   align-items: center;
   border-bottom: 1px solid #f1f1f1;
-}
+} */
 
 .item:last-child {
   border-bottom: 0;
@@ -97,8 +107,8 @@ input[type="checkbox"] {
 
 p {
   margin: 0;
-  padding: 20px;
-  font-size: 20px;
+  padding: 5px;
+  font-size: 1.3rem;
   font-weight: 200;
   color: #00204a;
 }
@@ -171,17 +181,15 @@ nav a:hover {
   flex: 1;
 }
 
-.sidebar {
+/* .sidebar {
   background-color: #f8f9fa;
   padding: 20px;
-  width: 250px;
+  width: 200px;
   height: 100%;
-  position: fixed;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  z-index: 1;
-  overflow-y: auto;
+} */
+.offcanvas {
+  max-width: 320px;
 }
-
 .sidebar h2 {
   margin-top: 0;
   margin-bottom: 10px;
@@ -193,11 +201,13 @@ nav a:hover {
   color: #333;
   padding: 5px;
   margin-bottom: 5px;
+  width: 85%;
 }
 
 .sidebar a:hover {
   background-color: #ddd;
   border-radius: 5px;
+  width: 85%;
 }
 
 main {
@@ -265,15 +275,28 @@ body form button {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  font-size: 1.3rem;
 }
 
 .sidebar .list-item button:hover {
   background-color: #c82333;
 }
+
+.sidebar .list-item button {
+  padding: 5px 10px;
+  min-height: 15px;
+  background-color: #a683e3;
+  border: none;
+  border-radius: 5px;
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
 .btn-primary {
   padding: 5px 10px;
   min-height: 15px;
-  background-color: #8c63d2;
+  background-color: #a683e3;
   border: none;
   border-radius: 5px;
   color: white;
@@ -282,6 +305,25 @@ body form button {
 }
 
 .btn-primary:hover {
-  background-color: #a683e3;
-  border-color: #a683e3;
+  background-color: #8c63d2;
+  /* border-color: #8c63d2; */
+}
+
+button:hover {
+  background-color: #8c63d2;
+}
+
+.align {
+  width: 100%;
+  text-align: center;
+}
+
+.offcanvas-body {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+}
+
+.lists-container {
+  flex-grow: 1;
 }

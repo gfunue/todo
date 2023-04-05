@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { List } from '../../models/list.module';
 import { TodoService } from '../../services/todo.service';
 import { Item } from '../../models/item.module';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +19,7 @@ export class HomeComponent implements OnInit {
   selectedList!: List;
   items!: Item[];
 
-  constructor(private todoService: TodoService) {}
+  constructor(private todoService: TodoService, private router: Router) {}
 
   ngOnInit(): void {
     this.fetchLists();
@@ -41,44 +42,61 @@ export class HomeComponent implements OnInit {
   }
 
   createDefaultList() {
-    const defaultListName = 'My Default List2';
-    this.todoService.createList(defaultListName).subscribe((response) => {
-      this.allLists.push(response);
+    const defaultListName = 'My Default Todo List';
+    this.todoService.createList(defaultListName).subscribe((response: any) => {
+      // Change the response type to 'any'
+
+      console.log('Response:', response); // Log the entire response object
+
+      const createdList = response[0]; // Access the list object inside the response array
+
+      this.allLists.push(createdList);
       this.updateLocalStorage();
-      this.selectList(response);
+      this.selectList(createdList); // Pass the createdList object instead of the response
       this.fetchLists();
+
+      const defaultItems: string[] = [
+        'Click on the "List Menu button to create a new list',
+        'Click on the chekbox to delete items from a list',
+        'Click on the "Add New Todo..." to a items to your to do list',
+      ];
+      defaultItems.forEach((itemName) => {
+        // Use this.selectedList.id instead of response.id
+        this.todoService
+          .createItem(this.selectedList.id, { name: itemName })
+          .subscribe((createdItem) => {
+            this.newListItems.push(createdItem);
+          });
+      });
     });
   }
 
-  // async createNewList(): Promise<void> {
-  //   const defaultItems: string[] = ['Item 1', 'Item 2', 'Item 3'];
-  //   if (!this.newListName) return;
-  //   const listResponse = await this.todoService
-  //     .createList(this.newListName)
-  //     .toPromise();
-  //   this.allLists.push(listResponse!);
-  //   this.newListName = '';
-  //   this.updateLocalStorage();
-  //   this.fetchLists();
-
-  //   for (const itemName of defaultItems) {
-  //     const createdItem = await this.todoService
-  //       .createItem(listResponse!.id, { name: itemName })
-  //       .toPromise();
-  //     this.newListItems.push(createdItem!);
-  //   }
-  // }
   createNewList(): void {
     if (!this.newListName) return;
-    this.todoService.createList(this.newListName).subscribe((response) => {
-      this.allLists.push(response);
+    this.todoService.createList(this.newListName).subscribe((response: any) => {
+      // Change the response type to 'any'
+
+      console.log('Response:', response); // Log the entire response object
+
+      const createdList = response[0]; // Access the list object inside the response array
+      this.newListItems = [];
+      this.allLists.push(createdList);
       this.newListName = '';
       this.updateLocalStorage();
 
-      const defaultItems: string[] = ['Item 1', 'Item 2', 'Item 3'];
+      // Set the selectedList to the newly created list
+      this.selectedList = createdList;
+      console.log('Here is the selectedlist: ' + this.selectedList.id);
+
+      const defaultItems: string[] = [
+        'Click on the "List Menu" on the top left to create a new list',
+        'Click on the chekbox on the left to delete items from a list',
+        'Click on the "Add New Todo..." to a items to your to do list',
+      ];
       defaultItems.forEach((itemName) => {
+        // Use this.selectedList.id instead of response.id
         this.todoService
-          .createItem(response.id, { name: itemName })
+          .createItem(this.selectedList.id, { name: itemName })
           .subscribe((createdItem) => {
             this.newListItems.push(createdItem);
           });
@@ -146,5 +164,10 @@ export class HomeComponent implements OnInit {
         (item) => item.id !== itemId
       );
     });
+  }
+
+  logout(): void {
+    this.todoService.logout();
+    this.router.navigate(['/']); // Navigate to the default route
   }
 }
