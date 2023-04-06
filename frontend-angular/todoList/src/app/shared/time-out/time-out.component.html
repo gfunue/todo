@@ -1,0 +1,12 @@
+<h1 mat-dialog-title>Inactivity Warning</h1>
+<div mat-dialog-content>
+  You will be logged out in {{ minutesLeft }}:{{
+    secondsLeft < 10 ? "0" + secondsLeft : secondsLeft
+  }}
+  due to inactivity.
+</div>
+<div mat-dialog-actions>
+  <button class="btn-style" mat-button mat-dialog-close cdkFocusInitial>
+    Ok
+  </button>
+</div>

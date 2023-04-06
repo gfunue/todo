@@ -31,6 +31,7 @@ export class TodoService {
         tap((response) => {
           console.log('Login response:', response);
           localStorage.setItem('token', response.token);
+          localStorage.setItem('lastActivity', String(Date.now()));
           localStorage.setItem('user_id', String(response.user.id));
           localStorage.setItem('lists', JSON.stringify(response.lists));
           console.log('Stored user_id:', localStorage.getItem('user_id'));
@@ -58,6 +59,11 @@ export class TodoService {
 
   logout(): void {
     localStorage.removeItem('token');
+    localStorage.removeItem('lastActivity');
+  }
+
+  updateLastActivity(): void {
+    localStorage.setItem('lastActivity', String(Date.now()));
   }
 
   registerUser(newUser: User): Observable<LoginResponse> {
