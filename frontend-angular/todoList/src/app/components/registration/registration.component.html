@@ -1,8 +1,8 @@
-<body class="text-center">
-  <main class="form-signin w-100 m-auto">
+<div class="v-align text-center">
+  <main class="form-signin w-100">
     <form [formGroup]="registrationForm" (ngSubmit)="onSubmit()">
       <h1 class="h3 mb-3 fw-normal">Register</h1>
-      <h6>All field is required</h6>
+      <h6>All fields are required</h6>
       <div class="form-floating">
         <input
           type="email"
@@ -32,7 +32,7 @@
           name="firstName"
           formControlName="firstName"
         />
-        <label for="floatingInput">First Name</label>
+        <label for="firstName">First Name</label>
         <p
           class="invalid"
           *ngIf="firstName!.invalid && (firstName!.touched || firstName!.dirty)"
@@ -56,7 +56,7 @@
           name="lastName"
           formControlName="lastName"
         />
-        <label for="floatingInput">Last Name</label>
+        <label for="lastName">Last Name</label>
         <p
           class="invalid"
           *ngIf="lastName!.invalid && (lastName!.touched || lastName!.dirty)"
@@ -75,12 +75,12 @@
         <input
           type="password"
           class="form-control middle"
-          id="floatingPassword"
+          id="password"
           placeholder="Password"
           name="password"
           formControlName="password"
         />
-        <label for="floatingPassword">Password</label>
+        <label for="password">Password</label>
         <p
           class="invalid"
           *ngIf="password!.invalid && (password!.touched || password!.dirty)"
@@ -99,11 +99,11 @@
         <input
           type="password"
           class="form-control bottom"
-          id="floatingPassword1"
+          id="ConfirmedPassword"
           placeholder="Password"
           formControlName="confirmPassword"
         />
-        <label for="floatingPassword1">Comfirm Password</label>
+        <label for="ConfirmedPassword">Comfirm Password</label>
         <p
           class="invalid"
           *ngIf="confirmPassword!.touched && (confirmPassword!.touched 
@@ -124,4 +124,4 @@
       <p>Already have an account ? <a routerLink="/">LogIn</a></p>
     </form>
   </main>
-</body>
+</div>

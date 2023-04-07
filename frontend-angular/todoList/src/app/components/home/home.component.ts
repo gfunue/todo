@@ -27,7 +27,6 @@ export class HomeComponent implements OnInit {
 
   fetchLists(): void {
     const userId = this.todoService.getLoggedInUser()?.id;
-    //console.log('Here is the usr ID::' + userId);
     if (userId) {
       this.todoService.getUserLists(userId).subscribe((lists) => {
         if (lists.length === 0) {
@@ -35,7 +34,6 @@ export class HomeComponent implements OnInit {
         } else {
           this.allLists = lists;
           this.selectList(this.allLists[0]);
-          //console.log('All of the list::' + lists);
         }
       });
     }

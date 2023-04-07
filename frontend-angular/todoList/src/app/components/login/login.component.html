@@ -1,8 +1,8 @@
-<body class="text-center">
-  <main class="form-signin w-100 m-auto">
+<div class="v-align text-center">
+  <main class="form-signin w-300">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
       <h1 class="h3 mb-3 fw-normal">Log In</h1>
-      <h6>All field is required</h6>
+      <h6>All fields are required</h6>
       <div class="form-floating">
         <input
           type="email"
@@ -35,12 +35,6 @@
           <span *ngIf="password!.errors?.['required']"
             >Password is required!</span
           >
-          <!-- <span *ngIf="password!.errors?.['minlength']"
-            >Password should be at least 2 characters!</span
-          > -->
-          <!-- <span *ngIf="password!.errors?.['maxlength']"
-            >Password should be at most 20 characters!</span
-          > -->
         </p>
       </div>
 
@@ -57,4 +51,4 @@
       </p>
     </form>
   </main>
-</body>
+</div>

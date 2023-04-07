@@ -7,7 +7,7 @@ import { MatDialogRef } from '@angular/material/dialog';
   styleUrls: ['./time-out.component.css'],
 })
 export class TimeOutComponent implements OnInit, OnDestroy {
-  minutesLeft = 5;
+  minutesLeft = 1;
   secondsLeft = 0;
   private countdownInterval: any;
 
