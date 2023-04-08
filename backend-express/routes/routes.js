@@ -16,12 +16,6 @@ router.post("/list", listController.authenticate, listController.createList);
 router.get("/lists", listController.getAllLists);
 router.get("/user-lists/:userId", listController.getUserLists);
 router.delete("/lists/:listId", listController.deleteListById);
-//router.put("/lists/:listId", listController.updateList);
-// router.post(
-//   "/lists/default",
-//   listController.authenticate,
-//   listController.createListWithDefaultItems
-// );
 
 // Item routes
 router.get("/items/:listId", itemController.getAllItems);

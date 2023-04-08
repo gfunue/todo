@@ -77,56 +77,6 @@ function createNewList(name, user_id, callback) {
   });
 }
 
-// function createNewList(name, user_id, callback) {
-//   const selectSql = "SELECT id FROM lists WHERE name = ? AND user_id = ?";
-//   connection.query(selectSql, [name, user_id], (error, results) => {
-//     if (error) {
-//       callback(error);
-//     } else {
-//       if (results.length > 0) {
-//         // A list with the given name and user id already exists
-//         const err = new Error(
-//           "List with the given name and user id already exists"
-//         );
-//         err.statusCode = 400;
-//         callback(err);
-//       } else {
-//         // Insert a new list
-//         const insertSql = "INSERT INTO lists (name, user_id) VALUES (?, ?)";
-//         connection.query(insertSql, [name, user_id], (error, results) => {
-//           callback(error, results);
-//         });
-//       }
-//     }
-//   });
-// }
-
-// function createDefaultItems(listId, callback) {
-//   const defaultItems = ["Item 1", "Item 2", "Item 3"];
-//   const insertPromises = defaultItems.map((itemName) => {
-//     return new Promise((resolve, reject) => {
-//       connection.query(
-//         "INSERT INTO items (name, list_id) VALUES (?, ?)",
-//         [itemName, listId],
-//         (error, results) => {
-//           if (error) {
-//             reject(error);
-//           } else {
-//             resolve(results);
-//           }
-//         }
-//       );
-//     });
-//   });
-//   Promise.all(insertPromises)
-//     .then(() => {
-//       callback(null);
-//     })
-//     .catch((error) => {
-//       callback(error);
-//     });
-// }
-
 function getAllLists(callback) {
   const sql = "SELECT * FROM lists";
   connection.query(sql, (error, results) => {
