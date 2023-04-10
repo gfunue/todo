@@ -81,13 +81,6 @@ h1 {
   margin: 50px auto;
 }
 
-/* .item {
-  min-height: 70px;
-  display: flex;
-  align-items: center;
-  border-bottom: 1px solid #f1f1f1;
-} */
-
 .item:last-child {
   border-bottom: 0;
 }
