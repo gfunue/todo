@@ -146,12 +146,6 @@ nav a:hover {
   flex: 1;
 }
 
-/* .sidebar {
-  background-color: #f8f9fa;
-  padding: 20px;
-  width: 200px;
-  height: 100%;
-} */
 .offcanvas {
   max-width: 320px;
 }
@@ -174,11 +168,6 @@ nav a:hover {
   border-radius: 5px;
   width: 85%;
 }
-
-/* main {
-  flex: 1;
-  padding: 10px;
-} */
 
 .box {
   padding: 20px;
