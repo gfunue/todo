@@ -124,5 +124,4 @@ module.exports = {
   deleteListById,
   updateList,
   getUserLists,
-  //createDefaultItems,
 };
