@@ -191,7 +191,6 @@ nav a:hover {
   flex-direction: column;
 }
 
-/* Add this CSS for the form in the sidebar */
 .sidebar form {
   display: flex;
   align-items: center;
