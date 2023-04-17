@@ -1,8 +1,11 @@
 <div class="v-align text-center">
   <main class="form-signin w-300">
     <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <!-- Heading -->
       <h1 class="h3 mb-3 fw-normal">Log In</h1>
       <h6>All fields are required</h6>
+
+      <!-- Email input field -->
       <div class="form-floating">
         <input
           type="email"
@@ -12,6 +15,7 @@
           formControlName="email"
         />
         <label for="floatingInput">Email address*</label>
+        <!-- Email validation messages -->
         <p
           class="invalid"
           *ngIf="email!.invalid && (email!.touched || email!.dirty)"
@@ -19,6 +23,8 @@
           <span *ngIf="email!.errors?.['required']">E-Mail is required!</span>
         </p>
       </div>
+
+      <!-- Password input field -->
       <div class="form-floating">
         <input
           type="password"
@@ -28,6 +34,7 @@
           formControlName="password"
         />
         <label for="floatingPassword1">Enter Password*</label>
+        <!-- Password validation messages -->
         <p
           class="invalid"
           *ngIf="password!.invalid && (password!.touched || password!.dirty)"
@@ -38,6 +45,7 @@
         </p>
       </div>
 
+      <!-- Login button -->
       <button
         class="w-100 btn btn-lg btn-primary"
         type="submit"
@@ -45,6 +53,7 @@
       >
         LogIn
       </button>
+      <!-- Registration link -->
       <p>
         Don't have an account ?
         <a routerLink="/registration">Register</a>
