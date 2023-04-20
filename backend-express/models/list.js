@@ -4,6 +4,7 @@ const USER = process.env.DB_USER;
 const PASSWORD = process.env.DB_PASSWORD;
 const DATABASE = process.env.DB_NAME;
 
+// Create a MySQL connection using environment variables
 const connection = mysql.createConnection({
   host: HOST,
   user: USER,
@@ -12,6 +13,7 @@ const connection = mysql.createConnection({
 });
 
 function createListsTable() {
+  // SQL query to create a 'lists' table if it doesn't exist
   const sql = `
     CREATE TABLE IF NOT EXISTS lists (
       id INT AUTO_INCREMENT UNIQUE NOT NULL PRIMARY KEY,
@@ -20,6 +22,7 @@ function createListsTable() {
       FOREIGN KEY (user_id) REFERENCES users(id)
     );
   `;
+  // Execute the query and log the result
   connection.query(sql, (error) => {
     if (error) {
       console.error("Error creating 'lists' table:", error);
@@ -29,6 +32,7 @@ function createListsTable() {
   });
 }
 
+// Connect to the database and create the 'lists' table if it doesn't exist
 connection.connect((err) => {
   if (err) {
     console.error("Error connecting to database:", err);
@@ -37,6 +41,7 @@ connection.connect((err) => {
   }
 });
 
+// Function to get a user's lists
 function getUserLists(userId, callback) {
   console.log("getUserLists called with userId:", userId);
   connection.query(
@@ -52,6 +57,7 @@ function getUserLists(userId, callback) {
   );
 }
 
+// Function to create a new list for a user
 function createNewList(name, user_id, callback) {
   const sql = "INSERT INTO lists (name, user_id) VALUES (?, ?)";
   connection.query(sql, [name, user_id], (error, results) => {
@@ -59,6 +65,7 @@ function createNewList(name, user_id, callback) {
   });
 }
 
+// Function to create a new list only if the list doesn't already exist for the user
 function createNewList(name, user_id, callback) {
   const sql = "SELECT * FROM lists WHERE name = ? AND user_id = ?";
   connection.query(sql, [name, user_id], (error, results) => {
@@ -77,6 +84,7 @@ function createNewList(name, user_id, callback) {
   });
 }
 
+// Function to get all lists
 function getAllLists(callback) {
   const sql = "SELECT * FROM lists";
   connection.query(sql, (error, results) => {
@@ -84,6 +92,7 @@ function getAllLists(callback) {
   });
 }
 
+// Function to get a list by its ID
 function getListById(listId, callback) {
   const sql = "SELECT * FROM lists WHERE id = ? LIMIT 1";
   connection.query(sql, [listId], (error, results) => {
@@ -91,6 +100,7 @@ function getListById(listId, callback) {
   });
 }
 
+// Function to delete a list by its ID
 function deleteListById(listId, callback) {
   const deleteItemsQuery = "DELETE FROM items WHERE list_id = ?";
   const deleteListQuery = "DELETE FROM lists WHERE id = ?";
@@ -106,6 +116,7 @@ function deleteListById(listId, callback) {
   });
 }
 
+// Function to update a list by its ID
 function updateList(listId, name, callback) {
   const sql = `
     UPDATE lists
@@ -115,6 +126,7 @@ function updateList(listId, name, callback) {
   connection.query(sql, [name, listId], callback);
 }
 
+// Export the functions and connection object
 module.exports = {
   connection,
   createListsTable,
