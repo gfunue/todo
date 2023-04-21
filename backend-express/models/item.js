@@ -4,6 +4,7 @@ const USER = process.env.DB_USER;
 const PASSWORD = process.env.DB_PASSWORD;
 const DATABASE = process.env.DB_NAME;
 
+// Create a connection to the MySQL database
 const connection = mysql.createConnection({
   host: HOST,
   user: USER,
@@ -11,6 +12,7 @@ const connection = mysql.createConnection({
   database: DATABASE,
 });
 
+// Function to create the items table if it doesn't exist
 function createItemsTable() {
   const sql = `
     CREATE TABLE IF NOT EXISTS items (
@@ -29,6 +31,7 @@ function createItemsTable() {
   });
 }
 
+// Connect to the MySQL database and create the items table if it doesn't exist
 connection.connect((err) => {
   if (err) {
     console.error("Error connecting to database:", err);
@@ -37,6 +40,7 @@ connection.connect((err) => {
   }
 });
 
+// Function to get all items by list ID
 function getAllItemsByListId(listId, callback) {
   connection.query(
     "SELECT items.* FROM items JOIN lists ON items.list_id = lists.id WHERE lists.id = ?",
@@ -45,6 +49,7 @@ function getAllItemsByListId(listId, callback) {
   );
 }
 
+// Function to create an item in a list
 function createItemInList(listId, itemName, callback) {
   connection.query(
     "INSERT INTO items (name, list_id) VALUES (?, ?)",
@@ -53,6 +58,7 @@ function createItemInList(listId, itemName, callback) {
   );
 }
 
+// Function to delete an item from a list by list ID and item ID
 function deleteItemFromList(listId, itemId, callback) {
   connection.query(
     "DELETE items FROM items JOIN lists ON items.list_id = lists.id WHERE lists.id = ? AND items.id = ?",
@@ -61,6 +67,7 @@ function deleteItemFromList(listId, itemId, callback) {
   );
 }
 
+// Function to update an item by its ID
 function updateItem(itemId, name, callback) {
   const sql = `
     UPDATE items
@@ -70,6 +77,7 @@ function updateItem(itemId, name, callback) {
   connection.query(sql, [name, itemId], callback);
 }
 
+// Export the functions and connection object
 module.exports = {
   connection,
   createItemsTable,
