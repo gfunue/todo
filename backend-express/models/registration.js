@@ -73,6 +73,7 @@ function getUserLists(userId, callback) {
   connection.query(sql, [userId], callback);
 }
 
+//Export the functions and connection object
 module.exports = {
   connection,
   createUsersTable,
