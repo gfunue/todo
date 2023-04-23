@@ -68,6 +68,7 @@ function findUserByEmail(email, callback) {
   connection.query(sql, [email], callback);
 }
 
+//Function to update Userlist.
 function getUserLists(userId, callback) {
   const sql = `SELECT * FROM lists WHERE user_id = ?`;
   connection.query(sql, [userId], callback);
