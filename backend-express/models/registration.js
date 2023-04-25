@@ -63,6 +63,7 @@ function updateUser(userId, updateData, callback) {
   );
 }
 
+//Function to get user by email address.
 function findUserByEmail(email, callback) {
   const sql = `SELECT * FROM users WHERE email = ?`;
   connection.query(sql, [email], callback);
