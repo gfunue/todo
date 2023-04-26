@@ -49,6 +49,7 @@ function registerUser(firstName, lastName, email, hashedPassword, callback) {
   );
 }
 
+//Function to update user.
 function updateUser(userId, updateData, callback) {
   const sql = `
     UPDATE users
