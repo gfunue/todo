@@ -38,6 +38,7 @@ connection.connect((err) => {
   }
 });
 
+//Function to resgister user.
 function registerUser(firstName, lastName, email, hashedPassword, callback) {
   const sql = `INSERT INTO users (firstName, lastName, email, password) VALUES (?, ?, ?, ?)`;
   connection.query(
