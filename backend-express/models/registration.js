@@ -30,6 +30,7 @@ function createUsersTable() {
   });
 }
 
+//Connect to the database and call the create user table function.
 connection.connect((err) => {
   if (err) {
     console.error("Error connecting to database:", err);
