@@ -11,6 +11,7 @@ const connection = mysql.createConnection({
   database: DATABASE,
 });
 
+//Function to connect to database and creat user table
 function createUsersTable() {
   const sql = `
     CREATE TABLE IF NOT EXISTS users (
