@@ -1,5 +1,6 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { AppComponent } from 'src/app/app.component';
 
 @Component({
   selector: 'app-time-out',
@@ -13,8 +14,20 @@ export class TimeOutComponent implements OnInit, OnDestroy {
 
   constructor(public dialogRef: MatDialogRef<TimeOutComponent>) {}
 
+  closeDialog(): void {
+    this.dialogRef.close();
+  }
+
   ngOnInit(): void {
     this.startCountdown();
+    this.dialogRef.keydownEvents().subscribe((event) => {
+      if (event.type === 'keydown') {
+        AppComponent.resetTimerEvent.emit();
+      }
+    });
+    this.dialogRef.backdropClick().subscribe(() => {
+      AppComponent.resetTimerEvent.emit();
+    });
   }
 
   ngOnDestroy(): void {

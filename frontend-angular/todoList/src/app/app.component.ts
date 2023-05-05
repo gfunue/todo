@@ -3,6 +3,7 @@ import { Router } from '@angular/router';
 import { TodoService } from './services/todo.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TimeOutComponent } from './shared/time-out/time-out.component';
+import { EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'app-root',
@@ -14,24 +15,31 @@ export class AppComponent implements OnInit, OnDestroy {
   private idleTimeout = 1000 * 60 * 2; // 30 minutes
   private warningTimeout = 1000 * 60 * 1; // 5 minutes
   private warningShown = false;
+  static resetTimerEvent: EventEmitter<void>;
+  private resetTimerOnMouseMove = this.resetTimer.bind(this);
+  private resetTimerOnKeyPress = this.resetTimer.bind(this);
 
   constructor(
     private todoService: TodoService,
     private router: Router,
     private dialog: MatDialog
-  ) {}
+  ) {
+    AppComponent.resetTimerEvent = new EventEmitter<void>();
+  }
 
   ngOnInit(): void {
     this.validateSingleSession();
     this.resetTimer();
-    document.body.addEventListener('mousemove', () => this.resetTimer());
-    document.body.addEventListener('keypress', () => this.resetTimer());
+    document.body.addEventListener('mousemove', this.resetTimerOnMouseMove);
+    document.body.addEventListener('keypress', this.resetTimerOnKeyPress);
+    AppComponent.resetTimerEvent.subscribe(() => this.resetTimer());
   }
 
   ngOnDestroy(): void {
     clearTimeout(this.idleTimer);
-    document.body.removeEventListener('mousemove', () => this.resetTimer());
-    document.body.removeEventListener('keypress', () => this.resetTimer());
+    document.body.removeEventListener('mousemove', this.resetTimerOnMouseMove);
+    document.body.removeEventListener('keypress', this.resetTimerOnKeyPress);
+    AppComponent.resetTimerEvent.unsubscribe();
   }
 
   resetTimer(): void {
