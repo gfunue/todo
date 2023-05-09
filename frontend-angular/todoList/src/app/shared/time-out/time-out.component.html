@@ -6,7 +6,7 @@
   due to inactivity.
 </div>
 <div mat-dialog-actions>
-  <button class="btn-style" mat-button mat-dialog-close cdkFocusInitial>
+  <button class="btn-style" mat-button (click)="closeDialog()" cdkFocusInitial>
     Ok
   </button>
 </div>
